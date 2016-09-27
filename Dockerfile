@@ -1,5 +1,5 @@
 FROM debian:wheezy
-MAINTAINER Akeem McLennon <akeem@mclennon.com>
+MAINTAINER Marcus Krejpowicz
 
 USER root
 RUN echo "deb http://gce_debian_mirror.storage.googleapis.com wheezy contrib non-free" >> /etc/apt/sources.list \
@@ -17,9 +17,6 @@ RUN apt-get -y install git-core
 WORKDIR /tmp
 RUN git clone -b 2.1 --recursive https://github.com/ariya/phantomjs
 RUN mv phantomjs /src
-RUN wget https://github.com/detro/ghostdriver/archive/master.tar.gz
-RUN tar -xzf master.tar.gz
-RUN ghostdriver-master/tools/export_ghostdriver.sh /src
 WORKDIR /src
 RUN sh deploy/docker-build.sh
 RUN cp /root/build/src/bin/phantomjs /usr/bin/ 
